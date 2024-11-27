@@ -10,6 +10,9 @@ const Feeds = () => {
      <Stories/>
      <AddNewPost/>
      <Post/>
+     <Post/>
+     <Post/>
+     <Post/>
     </div>
   )
 }
