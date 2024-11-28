@@ -1,10 +1,11 @@
 import React from "react";
 import Image from "next/image";
 import { MessageSquareText, Minus, ThumbsUp } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const Comment = () => {
   return (
-    <div id="list-container" className="flex w-[85%] flex-nowrap flex-col mx-auto  gap-2 my-2">
+    <div id="list-container" className="flex w-[85%] flex-nowrap flex-col mx-auto  gap-2 my-2  text-muted-foreground">
       <div className="flex items-center gap-2 text-sm -mb-2">
         <Image
           src={
@@ -28,8 +29,8 @@ const Comment = () => {
           necessitatibus! Blanditiis?
         </p>
         <div className="flex gap-10 my-1">
-          <span className="flex gap-2 items-center"><ThumbsUp className="w-3 h-3" /> | 12</span>
-          <span className="flex gap-2 items-center" ><MessageSquareText className="w-3 h-3 rotate-180" /> reply</span>
+          <Button variant={"ghost"} className="flex gap-2 items-center rounded-xl text-primary"><ThumbsUp className="w-3 h-3" /> | 12</Button>
+          <Button variant={"ghost"} className="flex gap-2 items-center rounded-xl text-primary" ><MessageSquareText className="w-3 h-3 rotate-180" /> reply</Button>
         </div>
       </div>
     </div>

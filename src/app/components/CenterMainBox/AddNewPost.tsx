@@ -5,7 +5,7 @@ const AddNewPost = () => {
   return (
     <div
       id="addPost-container"
-      className="bg-white p-2 flex flex-col  text-sm rounded-lg shadow-md"
+      className="bg-background p-2 flex flex-col  text-sm rounded-lg shadow-md"
     >
       <div className=" flex flex-nowrap justify-center items-center gap-2">
         {/* AvATAR */}
@@ -14,7 +14,7 @@ const AddNewPost = () => {
           alt="avatar"
           width={48}
           height={48}
-          className="rounded-full w-12  h-12 object-cover shadow-md hover:scale-110 duration-300 cursor-pointer ring-2 ring-orange-500"
+          className="rounded-full w-12  h-12 object-cover shadow-md hover:scale-110 duration-300 cursor-pointer ring-1 ring-ring"
         />
 
         {/* TEXTE AREA INPUT */}
@@ -23,7 +23,7 @@ const AddNewPost = () => {
             name="desc"
             id="description"
             placeholder="What's on your mind"
-            className="text-sm flex-1  bg-slate-200 focus:outline-none rounded-md p-2"
+            className="text-sm flex-1  bg-input focus:outline-none rounded-md p-2 text-secondary-foreground"
           ></textarea>
 
           <span className="  self-end ">
@@ -43,28 +43,28 @@ const AddNewPost = () => {
         className="flex gap-2 mt-4 mx-auto justify-between items-center px-4 w-[85%]"
       >
         <div
-          className="flex gap-1 items-center hover:animate-pulse cursor-pointer p-2 rounded-lg opacity-70 bg-green-300 hover:scale-110 duration-300 ease-in-out "
+          className="flex gap-1 items-center hover:animate-pulse cursor-pointer p-0 px-2 py-2 rounded-xl opacity-70 bg-green-300 hover:scale-110 duration-300 ease-in-out "
           title="add a photo"
         >
           <Camera className="text-white" />{" "}
           <p className="text-sm text-white md:flex  hidden">Photo</p>
         </div>
         <div
-          className="flex gap-1 items-center hover:animate-pulse cursor-pointer p-2 rounded-lg opacity-70 bg-purple-300 hover:scale-110 duration-300 ease-in-out "
+          className="flex gap-1 items-center hover:animate-pulse cursor-pointer p-0 px-2 py-2 rounded-xl opacity-70 bg-purple-300 hover:scale-110 duration-300 ease-in-out "
           title="add a video"
         >
           <Video className="text-white" />{" "}
           <p className="text-sm text-white md:flex  hidden">Video</p>
         </div>
         <div
-          className="flex gap-1 items-center hover:animate-pulse cursor-pointer p-2 rounded-lg opacity-70 bg-red-300 hover:scale-110 duration-300 ease-in-out "
+          className="flex gap-1 items-center hover:animate-pulse cursor-pointer p-0 px-2 py-2 rounded-xl opacity-70 bg-red-300 hover:scale-110 duration-300 ease-in-out "
           title="add a poll"
         >
           <AlignVerticalJustifyEnd  className="text-white" />{" "}
           <p className="text-sm text-white md:flex  hidden">Poll</p>
         </div>
         <div
-          className="flex gap-1 items-center hover:animate-pulse cursor-pointer p-2 rounded-lg opacity-70 bg-blue-300 hover:scale-110 duration-300 ease-in-out "
+          className=" flex gap-1 items-center hover:animate-pulse cursor-pointer p-0 px-2 py-2 rounded-xl opacity-70 bg-blue-300 hover:scale-110 duration-300 ease-in-out "
           title="add an event"
         >
           <CalendarDays className="text-white" />{" "}

@@ -4,7 +4,7 @@ import RightMainBox from "./components/RightMainBox/RightMainBox";
 
 const Homepage = () => {
   return (
-    <div id="main-home-container" className="flex gap-6">
+    <div id="main-home-container" className="flex gap-4 ">
       {/* LEFT */}
       <div id="left" className="hidden xl:flex  w-[20%] ">
       <LeftMainBox/>
@@ -14,7 +14,7 @@ const Homepage = () => {
         <Feeds/>
       </div>
       {/* RIGHT */}
-      <div id="right" className="hidden lg:flex w-[30%] ">
+      <div id="right" className="hidden lg:flex w-[30%]  ">
         <RightMainBox/>
       </div>
     </div>

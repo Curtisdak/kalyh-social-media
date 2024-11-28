@@ -22,18 +22,20 @@ import {
 } from "@clerk/nextjs";
 import Klogo from "@/app/kalyh-logo-1.png";
 import Image from "next/image";
+import { ModeToggle } from "@/components/ModeToggle";
+import { Button } from "@/components/ui/button";
 
 const Navbar = () => {
   return (
-    <div className="h-12 flex  justify-between items-center font-semibold  ">
+    <div className="h-12 flex  justify-between items-center  ">
       {/* LEFT */}
       <div className="hover:scale-110 duration-300 ease-in-out w-[10%]">
         <Link
-          className="text-orange-500 font-bold text-xl  flex items-center  "
+          className=" font-bold text-xl  flex items-center  "
           href={"/"}
         >
           <Image src={Klogo} width={40} height={40} alt="logo " />
-          <span className="hidden   lg:flex">KALYH</span>
+          <span className="hidden   lg:flex">Kalyh</span>
         </Link>
       </div>
       {/* CENTER */}
@@ -64,13 +66,13 @@ const Navbar = () => {
 
         <div
           id="searchInput-container"
-          className="hidden   md:flex items-center gap-1 p-1  bg-slate-200 rounded-md active:border-2 active:border-orange-500 duration-300 ease-in-out "
+          className="hidden   md:flex items-center gap-1 p-1  bg-input rounded-md active:border-2 active:border-ring duration-300 ease-in-out "
         >
           <Search className="w-5 h-5 text-slate-400 font-bold hover:scale-110 cursor-pointer duration-300 ease-in-out" />
           <input
             type="text"
             placeholder="Search..."
-            className="bg-transparent  font-normal w-full focus:outline-none placeholder:font-normal "
+            className="bg-input   font-normal w-full focus:outline-none placeholder:font-normal "
           />
         </div>
       </div>
@@ -83,6 +85,7 @@ const Navbar = () => {
         </div>
 
         <MobileMenu />
+        
         <div className="hidden md:flex">
           <ClerkLoading>
             <Spinner />
@@ -106,23 +109,23 @@ const Navbar = () => {
                   <Bell className="w-4 h-4" />{" "}
                   <p className="text-sm">Notifications</p>{" "}
                 </div>
-                <Link
-                  className="flex flex-row gap-1 items-center justify-center hover:scale-110 duration-500 ease-in-out"
-                  href={"/profile"}
-                >
+                
                   <UserButton />
-                </Link>
+                  <ModeToggle/>
+                
               </div>
             </SignedIn>
 
             <SignedOut>
               <Link
-                className="flex flex-row gap-1 items-center justify-center hover:scale-110 duration-500 ease-in-out"
+                className="flex flex-row gap-1 mx-1 items-center justify-center hover:scale-110 duration-500 ease-in-out"
                 href={"/sign-in"}
               >
-                <LucideCircleUser className="w-4 h-4" />{" "}
-                <p className="text-sm">Login/register</p>
+               {" "}
+                <Button variant="ghost" className="text-sm rounded-xl"> <LucideCircleUser className="w-4 h-4" /> Login/register</Button>
+               
               </Link>
+              <ModeToggle/>
             </SignedOut>
           </ClerkLoaded>
         </div>
