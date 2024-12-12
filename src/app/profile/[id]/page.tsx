@@ -25,8 +25,6 @@ const Profile = ({ params }: ProfileProps) => {
      <Post/>
      <Post/>
      <Post/>
-     <Post/>
-     <Post/>
     </div>
     {/* RIGHT */}
     <div id="right" className="hidden lg:flex w-[30%]  ">
