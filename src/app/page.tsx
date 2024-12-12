@@ -4,10 +4,10 @@ import RightMainBox from "./components/RightMainBox/RightMainBox";
 
 const Homepage = () => {
   return (
-    <div id="main-home-container" className="flex gap-4 ">
+    <div id="main-home-container" className="flex gap-2 sm:gap-0">
       {/* LEFT */}
       <div id="left" className="hidden xl:flex  w-[20%] ">
-      <LeftMainBox/>
+      <LeftMainBox type={"home"}/>
       </div>
       {/* CENTER */}
       <div id="center" className="w-full h-100vh lg:w-[70%] xl:w-[50%] overflow-y-scroll  ">
@@ -15,7 +15,7 @@ const Homepage = () => {
       </div>
       {/* RIGHT */}
       <div id="right" className="hidden lg:flex w-[30%]  ">
-        <RightMainBox/>
+        <RightMainBox userId={""} />
       </div>
     </div>
   );

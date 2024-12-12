@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-key */
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
@@ -27,7 +28,7 @@ const Ads = ({ size }: { size: "sm" | "md" | "lg" }) => {
   return (
     <div className="bg-background  p-4 rounded-md shadow-md flex flex-col text-sm text-muted-foreground">
       <div className="mb-4 flex justify-between items-center text-muted-foreground">
-        Sponsor Ads <Ellipsis />{" "}
+        Sponsor Ads <Ellipsis className="cursor-pointer" />{" "}
       </div>
       <div className="flex flex-col gap-4  mb-3"></div>
 
@@ -47,7 +48,7 @@ const Ads = ({ size }: { size: "sm" | "md" | "lg" }) => {
           {slides.map((slide, index) => (
             <CarouselItem key={index}>
               {slide}
-              <p className=" w-full mx-[45%] mt-1">
+              <p className=" w-full mx-[45%] mt-1 ">
                 {index} / {slides.length - 1}{" "}
               </p>
             </CarouselItem>

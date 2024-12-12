@@ -1,4 +1,9 @@
-import React from 'react'
+import Feeds from "@/app/components/CenterMainBox/Feeds";
+import MainProfile from "@/app/components/CenterMainBox/MainProfile";
+import Post from "@/app/components/CenterMainBox/Post";
+import LeftMainBox from "@/app/components/LeftMainBox/LeftMainBox";
+import RightMainBox from "@/app/components/RightMainBox/RightMainBox";
+import React from "react";
 
 type ProfileProps = {
   params: {
@@ -9,19 +14,26 @@ type ProfileProps = {
 const Profile = ({ params }: ProfileProps) => {
   const { id } = params; // Extracting `username` from `params`
   return (
-    <div>
-      Hello {id}
+    <div id="main-home-container" className="flex gap-4 ">
+    {/* LEFT */}
+    <div id="left" className="hidden xl:flex  w-[20%] ">
+    <LeftMainBox type="profile"/>
     </div>
+    {/* CENTER */}
+    <div id="center" className="w-full flex flex-col  h-100vh gap-2 lg:w-[70%] xl:w-[50%] overflow-y-scroll mt-14 scrollbar-hide  ">
+      <MainProfile/>
+     <Post/>
+     <Post/>
+     <Post/>
+     <Post/>
+     <Post/>
+    </div>
+    {/* RIGHT */}
+    <div id="right" className="hidden lg:flex w-[30%]  ">
+      <RightMainBox userId="test"/>
+    </div>
+  </div>
   );
 };
 
 export default Profile;
-
-
-
-
-
-
-
-
-

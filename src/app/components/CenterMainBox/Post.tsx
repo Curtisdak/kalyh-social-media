@@ -78,11 +78,11 @@ const Post = () => {
         </Button>
         <Button  variant={"secondary"} className="flex items-center gap-2  rounded-2xl">
           {" "}
-          <Send className="w-3 h-3 " /> share{" "}
+          <Send className="w-3 h-3 " /> <p className="hidden md:flex">share</p>{" "}
         </Button>
         <Button variant={"secondary"}  className="flex items-center gap-2 rounded-2xl">
           {" "}
-          <Bookmark className="w-3 h-3 bg-origin-content cursor-pointer" /> save{" "}
+          <Bookmark className="w-3 h-3 bg-origin-content cursor-pointer" /> <p className=" hidden md:flex">save</p> {" "}
         </Button>
       </div>
 
