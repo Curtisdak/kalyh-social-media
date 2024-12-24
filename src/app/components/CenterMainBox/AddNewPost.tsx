@@ -1,14 +1,18 @@
+"use server";
+
 import React from "react";
 import Image from "next/image";
 import {
-  AlignVerticalJustifyEnd,
-  CalendarDays,
-  Camera,
   CameraIcon,
+  SendHorizontal,
   Video,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 const AddNewPost = () => {
+ 
+
+
+
   return (
     <div
       id="addPost-container"
@@ -25,14 +29,20 @@ const AddNewPost = () => {
         />
 
         {/* TEXTE AREA INPUT */}
-        <div className=" gap-2 flex  flex-1 ">
+        <form action={""} className=" gap-2 flex  flex-1  ">
           <textarea
             name="desc"
             id="description"
             placeholder="What's on your mind"
-            className="text-sm flex-1 w-full bg-input focus:outline-none rounded-md p-2 text-secondary-foreground"
+            className="text-sm flex-1 w-full bg-input focus:outline-none rounded-md p-2 text-secondary-foreground hover:ring-1 hover:ring-primary"
           ></textarea>
-        </div>
+          <button
+            type="submit"
+            className="bg-input rounded-lg p-2 hover:scale-90 duration-500 ease-in-out "
+          >
+            <SendHorizontal className=" text-primary " />
+          </button>
+        </form>
 
         <Button variant={"ghost"} className=" self-end p-0 ">
           <span>

@@ -1,37 +1,136 @@
 import { Button } from "@/components/ui/button";
-import { Briefcase, CalendarDays, GraduationCap, Link2, MapPin, ShieldOff } from "lucide-react";
+import { User } from "@prisma/client";
+import {
+  Briefcase,
+  CalendarDays,
+  GraduationCap,
+  Link2,
+  MapPin,
+  ShieldOff,
+} from "lucide-react";
 import Link from "next/link";
 import React from "react";
+import UserInfoCardInteraction from "./UserInfoCardInteraction";
+import { auth } from "@clerk/nextjs/server";
+import prisma from "../../../../lib/client";
 
-const UserInfoCard = ({ userId }: { userId: string }) => {
+const convertedDate = (date: any) => {
+  const theDate = new Date();
+  const dateOptions: any = {
+    dateStyle: "full",
+  };
+  const formatter = new Intl.DateTimeFormat(date, dateOptions);
+  const formattedDate = formatter.format(theDate);
+
+  if (date) return formattedDate;
+};
+
+const UserInfoCard = async ({ user }: { user: User }) => {
+  let isUserBlocked = false;
+  let isFollowing = false;
+  let isFollowRequestSent = false;
+
+  const { userId: currentUserId } = auth();
+
+  if (currentUserId) {
+    const blockRes = await prisma.block.findFirst({
+      where: {
+        blockerId: currentUserId,
+        blockedId: user.id,
+      },
+    });
+    blockRes ? (isUserBlocked = true) : (isUserBlocked = false);
+
+    const followRes = await prisma.follow.findFirst({
+      where: {
+        followerId: currentUserId,
+        followingId: user.id,
+      },
+    });
+    followRes ? (isFollowing = true) : (isFollowing = false);
+
+    const followRequestRes = await prisma.followRequest.findFirst({
+      where: {
+        senderId: currentUserId,
+        receiverId: user.id,
+      },
+    });
+
+    followRequestRes ? (isFollowRequestSent = true) : (isFollowRequestSent = false);
+  }
+
   return (
     <div className="bg-background p-4 shadow-lg rounded-md w-full text-sm ">
       {/*  */}
       <div className="flex justify-between items-center text-primary mb-2">
         <p className="">User information</p>
         <Button variant={"ghost"} className="rounded-full">
-          See all
+          Edit
         </Button>
       </div>
       <p className="text-lg text-muted-foreground font-bold">
-        Kirikou Omega <span className="text-[12px] font-normal"> @kirikouomega</span>
+        {user?.name}{" "}
+        <span className="text-[12px] font-normal"> @{user?.username}</span>
       </p>
 
       <p className="text-muted-foreground text-[12px] ">
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Deleniti,
-        expedita. Repellendus tenetur atque deserunt, deleniti, nobis quidem
-        eius necessitatibus sit obcaecati minus autem ullam asperiores
-        voluptatum aut omnis ea molestiae?
+        {user?.bio ? user?.bio : "There is no description yet"}
       </p>
 
       <div className="flex flex-col gap-2 text-muted-foreground my-2 text-[12px]">
-        <div className="flex gap-2 items-center">   <MapPin strokeWidth={1.50} className="w-4 h-4" /> <p>Living in <strong className="text-primary"> France </strong> </p> </div>
-        <div className="flex gap-2 items-center">   <GraduationCap  strokeWidth={1.50} className="w-4 h-4" /> <p>Went to <strong className="text-primary">  Victor kirikou School</strong> </p> </div>
-        <div className="flex gap-2 items-center">   <Briefcase  strokeWidth={1.50} className="w-4 h-4" /> <p>Work at <strong className="text-primary"> Apple Inc. </strong> </p> </div>
-        <Link href={'www.youtube.com'} className="flex gap-2 items-cente font-extrabold">   <Link2    strokeWidth={1.50} className="w-4 h-4" /> <p>My website </p> </Link>
-        <div className="flex gap-2 items-center">   <CalendarDays   strokeWidth={1.50} className="w-4 h-4" /> <p> Joined on November 2024 </p> </div>
-        <Button>Following</Button>
-        <p className="flex gap-2 items-center w-full justify-end">Block this User <ShieldOff strokeWidth={0} fill="red"  className="w-4 h-4" /> </p>
+        <div className="flex gap-2 items-center">
+          {" "}
+          <MapPin strokeWidth={1.5} className="w-4 h-4" />{" "}
+          <p>
+            Living in{" "}
+            <strong className="text-primary">
+              {" "}
+              {!user?.city ? "Nowhere" : user?.city}{" "}
+            </strong>{" "}
+          </p>{" "}
+        </div>
+        <div className="flex gap-2 items-center">
+          {" "}
+          <GraduationCap strokeWidth={1.5} className="w-4 h-4" />{" "}
+          <p>
+            Went to{" "}
+            <strong className="text-primary">
+              {" "}
+              {!user?.school ? "No School" : user?.school}{" "}
+            </strong>{" "}
+          </p>{" "}
+        </div>
+        <div className="flex gap-2 items-center">
+          {" "}
+          <Briefcase strokeWidth={1.5} className="w-4 h-4" />{" "}
+          <p>
+            Work at{" "}
+            <strong className="text-primary">
+              {!user?.work ? "Nowhere" : user?.work}{" "}
+            </strong>{" "}
+          </p>{" "}
+        </div>
+        <Link
+          href={user?.website || "/"}
+          className="flex gap-2 items-cente font-extrabold"
+        >
+          {" "}
+          <Link2 strokeWidth={1.5} className="w-4 h-4" />{" "}
+          <p>{!user?.website ? "No link" : user?.website}</p>{" "}
+        </Link>
+        <div className="flex gap-2 items-center">
+          {" "}
+          <CalendarDays strokeWidth={1.5} className="w-4 h-4" />{" "}
+          <p> {` ${convertedDate(user?.createdAt)}`} </p>{" "}
+        </div>
+
+        <UserInfoCardInteraction
+          userId= {user.id}
+          currentUserId = {currentUserId}
+          isUserBlocked={isUserBlocked}
+          isFollowing={isFollowing}
+          isFollowRequestSent={isFollowRequestSent}
+        />
       </div>
     </div>
   );

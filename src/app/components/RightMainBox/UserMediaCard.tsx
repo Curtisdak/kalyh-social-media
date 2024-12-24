@@ -1,8 +1,10 @@
 import { Button } from "@/components/ui/button";
+import { User } from "@prisma/client";
 import Image from "next/image";
 import React from "react";
 
-const UserMediaCard = ({ userId }: { userId: string }) => {
+
+const UserMediaCard = ({ user }:{user?:User}) => {
   return (
     <div className="bg-background p-4 shadow-lg rounded-md w-full text-sm ">
       {/*  */}

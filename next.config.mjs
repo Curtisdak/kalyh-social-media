@@ -1,14 +1,12 @@
-/** @type {import('next').NextConfig} */
+/** @type { import ('next').NextConfig }*/
 const nextConfig = {
     experimental: {
         reactCompiler: true,
         ppr: 'incremental'
     },
     images: {
-        remotePatterns: [{
-            protocol: "https",
-            hostname: "images.pexels.com",
-        }]
-    }
+        domains: ["images.pexels.com", "img.clerk.com", ]
+    },
+
 };
 export default nextConfig;
