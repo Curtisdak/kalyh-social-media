@@ -56,7 +56,9 @@ const UserInfoCard = async ({ user }: { user: User }) => {
       },
     });
 
-    followRequestRes ? (isFollowRequestSent = true) : (isFollowRequestSent = false);
+    followRequestRes
+      ? (isFollowRequestSent = true)
+      : (isFollowRequestSent = false);
   }
 
   return (
@@ -64,9 +66,11 @@ const UserInfoCard = async ({ user }: { user: User }) => {
       {/*  */}
       <div className="flex justify-between items-center text-primary mb-2">
         <p className="">User information</p>
-        <Button variant={"ghost"} className="rounded-full">
-          Edit
-        </Button>
+        {currentUserId === user.id && 
+          <Button variant={"ghost"} className="rounded-full">
+            Edit
+          </Button>
+        }
       </div>
       <p className="text-lg text-muted-foreground font-bold">
         {user?.name}{" "}
@@ -124,13 +128,13 @@ const UserInfoCard = async ({ user }: { user: User }) => {
           <p> {` ${convertedDate(user?.createdAt)}`} </p>{" "}
         </div>
 
-        <UserInfoCardInteraction
-          userId= {user.id}
-          currentUserId = {currentUserId}
+        {currentUserId!==user.id && <UserInfoCardInteraction
+          userId={user.id}
+          currentUserId={currentUserId}
           isUserBlocked={isUserBlocked}
           isFollowing={isFollowing}
           isFollowRequestSent={isFollowRequestSent}
-        />
+        />}
       </div>
     </div>
   );

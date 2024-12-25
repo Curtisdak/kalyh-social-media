@@ -6,7 +6,7 @@ import RightMainBox from "@/app/components/RightMainBox/RightMainBox";
 import React from "react";
 import { auth } from "@clerk/nextjs/server";
 import prisma from "../../../../lib/client";
-import { notFound } from "next/navigation";
+import BlockByUser from "@/app/components/ErrorMessage/BlockByUser";
 
 type ProfileProps = {
   params: {
@@ -33,7 +33,7 @@ const Profile = async ({ params }: ProfileProps) => {
     },
   });
 
-  if (!user) return notFound();
+  if (!user) return <BlockByUser message={`Sorry!  ${username} does not exist`} link={""} username={""}/>
 
   const { userId: currentUserId } = auth();
 
@@ -52,7 +52,7 @@ const Profile = async ({ params }: ProfileProps) => {
     isBlocked = false;
   }
 
-  if(isBlocked)return notFound()
+  if(isBlocked)return <BlockByUser message={"Sorry you were blocked by "} link={"/"} username={username}/>
 
   return (
     <div id="main-home-container" className="flex gap-4 ">
@@ -65,14 +65,6 @@ const Profile = async ({ params }: ProfileProps) => {
         id="center"
         className="w-full flex flex-col  h-100vh gap-2 lg:w-[70%] xl:w-[50%] overflow-y-scroll mt-14 scrollbar-hide  "
       >
-        {/*   {!isBlocked ? (
-          <div className="flex items-center justify-center text-center font-extrabold text-primary text-3xl h-[80%]">
-            <p>You have been blocked by this user</p>
-          </div>
-        ) : (
-          <MainProfile user={user} />
-        )}    */}
-
         <MainProfile user={user} />
         <Post />
         <Post />

@@ -1,8 +1,11 @@
 import React from "react";
 import OneFriendRequest from "./OneFriendRequest";
 import { Button } from "@/components/ui/button";
+import { auth } from "@clerk/nextjs/server";
+import prisma from "../../../../lib/client";
 
-const FriendsRequest = () => {
+const FriendsRequest = async () => {
+   const {userId:currentuserId} = auth()
   return (
     <div className="bg-background p-4 shadow-lg rounded-md w-full text-sm max-h-[250px] overflow-scroll scrollbar-hide">
       {/*  */}

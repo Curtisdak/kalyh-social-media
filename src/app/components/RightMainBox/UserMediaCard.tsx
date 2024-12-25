@@ -2,9 +2,24 @@ import { Button } from "@/components/ui/button";
 import { User } from "@prisma/client";
 import Image from "next/image";
 import React from "react";
+import prisma from "../../../../lib/client";
 
 
-const UserMediaCard = ({ user }:{user?:User}) => {
+const UserMediaCard = async ({ user }:{user:User}) => {
+
+  const postMedias = await prisma.post.findMany({
+    where:{
+      userId:user?.id,
+      img:{not:null},
+    },
+    take:8,
+    orderBy:{
+      createdAt:"desc",
+    }
+  })
+
+
+
   return (
     <div className="bg-background p-4 shadow-lg rounded-md w-full text-sm ">
       {/*  */}
@@ -15,21 +30,19 @@ const UserMediaCard = ({ user }:{user?:User}) => {
         </Button>
       </div>
       <div className="grid grid-rows-2  grid-cols-4  gap-3 opacity-60 hover:opacity-100">
-        {Array.from({ length: 6}, (_, index) => (
+        {postMedias.length  ? postMedias.map(postMedia => (
           <div
-            key={index}
+            key={postMedia.id}
             className="relative w-25 h-40 rounded-sm overflow-hidden"
           >
             <Image
-              src={
-                "https://images.pexels.com/photos/6154428/pexels-photo-6154428.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-              }
+              src={postMedia.img!}
               alt="media"
               fill
               className="object-cover hover:animate-pulse cursor-pointer"
             />
           </div>
-        ))}
+        )): <p className="text-destructive block"> No medias </p> }
       </div>
     </div>
   );
