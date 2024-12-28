@@ -1,29 +1,111 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import { convertedDate } from "./UserInfoCard";
+import Link from "next/link";
+import {
+  acceptFollowRequest,
+  refuseFollowRequest,
+} from "@/Actions/friendRequestAction";
 
-const OneFriendRequest = () => {
+type FollowRequests = {
+  id: number;
+  sender: {
+    id: string;
+    username: string;
+    avatar: string;
+  };
+  createdAt: string;
+};
+
+const OneFriendRequest = ({followRequests,accept, refuse}: {followRequests: FollowRequests[],accept:any,refuse:any}) => {
+  const [requestState, setRequestState] = useState(followRequests);
+
+  if (!requestState || requestState.length === 0) return null;
+
+  const handleAccept = async (
+    userId: string,
+    requestId: number
+  ): Promise<void> => {
+    try {
+      await accept(userId);
+      setRequestState((prev) => prev.filter((req) => req.id !== requestId));
+    } catch (error) {
+      console.error("Failed to accept request:", error);
+    }
+  };
+
+  const handleRefuse = async (
+    userId: string,
+    requestId: number
+  ): Promise<void> => {
+    try {
+      await refuse(userId);
+      setRequestState((prev) => prev.filter((req) => req.id !== requestId));
+    } catch (error) {
+      console.error("Failed to refuse request:", error);
+    }
+  };
+
   return (
-    <div className="flex gap-3 flex-nowrap items-center w-full">
-      <Image
-        src={
-          "https://images.pexels.com/photos/15953861/pexels-photo-15953861/free-photo-of-femme-retro-vintage-automne.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-        }
-        alt="request avatar"
-        width={32}
-        height={32}
-        className="rounded-full w-10 h-10  object-contain relative"
-      />
-      <div className="flex-1">
-        <p className="text-primary text-sm"> Ange Marie </p>
-        <p className="text-muted-foreground text-[12px]">Request sent on  : <span className="">15 nov 2015</span></p>
-      </div>
+    <>
+      {requestState.map((request) => (
+        <div key={request.id} className="flex gap-3 items-center w-full">
+          {/* Profile Link */}
+          <Link
+            href={`/profile/${request.sender.username}`}
+            className="flex gap-3 items-center w-full hover:opacity-80"
+          >
+            {/* Avatar */}
+            <Image
+              src={request.sender.avatar || "/images/noAvatar.png"}
+              alt={`${request.sender.username}'s avatar`}
+              width={40}
+              height={40}
+              className="rounded-full w-10 h-10 object-cover"
+            />
 
-      <div>
-        <Button title="click to accept the request" variant={"default"} className="rounded-full mx-2 size-8">Yes</Button>
-        <Button title="click to reject the request"  variant={"secondary"} className="rounded-full  size-9 ">No</Button>
-      </div>
-    </div>
+            {/* User Details */}
+            <div className="flex-1">
+              <p className="text-primary text-sm font-medium">
+                {request.sender.username}
+              </p>
+              <p className="text-muted-foreground text-xs">
+                Sent on:{" "}
+                <span>{convertedDate(request.createdAt, "medium")}</span>
+              </p>
+            </div>
+          </Link>
+
+          {/* Action Buttons */}
+          <div className="flex">
+            <form action={() => handleAccept(request.sender.id, request.id)}>
+              <Button
+                title="Accept this request"
+                variant="default"
+                className="rounded-full mx-2"
+                type="submit"
+              >
+                Accept
+              </Button>{" "}
+            </form>
+            <form action={() => handleRefuse(request.sender.id, request.id)}>
+            
+              <Button
+                title="Reject this request"
+                variant="secondary"
+                className="rounded-full"
+                type="submit"
+              >
+                Reject
+              </Button>
+            </form>
+          </div>
+        </div>
+      ))}
+    </>
   );
 };
 
