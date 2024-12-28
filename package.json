@@ -1,27 +1,47 @@
 {
-  "name": "soci-start",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev --turbo",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "babel-plugin-react-compiler": "^0.0.0-experimental-938cd9a-20240601",
-    "next": "15.0.0-rc.0",
-    "react": "19.0.0-rc-f994737d14-20240522",
-    "react-dom": "19.0.0-rc-f994737d14-20240522"
-  },
-  "devDependencies": {
-    "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
-    "eslint": "^8",
-    "eslint-config-next": "15.0.0-rc.0",
-    "postcss": "^8",
-    "tailwindcss": "^3.4.1",
-    "typescript": "^5"
-  }
+    "name": "kalyh",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+        "dev": "next dev --turbo",
+        "build": "next build",
+        "start": "next start",
+        "lint": "next lint"
+    },
+    "dependencies": {
+        "@babel/core": "^7.26.0",
+        "@babel/preset-env": "^7.26.0",
+        "@babel/preset-react": "^7.26.3",
+        "@clerk/nextjs": "^5.1.0",
+        "@clerk/themes": "^2.2.3",
+        "@prisma/client": "^5.22.0",
+        "@radix-ui/react-dropdown-menu": "^2.1.2",
+        "@radix-ui/react-slot": "^1.1.0",
+        "babel-plugin-react-compiler": "^0.0.0-experimental-938cd9a-20240601",
+        "class-variance-authority": "^0.7.1",
+        "clsx": "^2.1.1",
+        "dotenv": "^16.4.7",
+        "embla-carousel-autoplay": "^8.5.1",
+        "embla-carousel-react": "^8.5.1",
+        "lucide-react": "^0.460.0",
+        "mysql2": "^3.11.5",
+        "next": "15.0.0-rc.0",
+        "next-themes": "^0.4.3",
+        "prisma": "^5.15.1",
+        "react": "19.0.0-rc-f994737d14-20240522",
+        "react-dom": "19.0.0-rc-f994737d14-20240522",
+        "svix": "^1.44.0",
+        "tailwind-merge": "^2.5.5",
+        "tailwindcss-animate": "^1.0.7"
+    },
+    "devDependencies": {
+        "@types/node": "^20",
+        "@types/react": "^18",
+        "@types/react-dom": "^18",
+        "eslint": "^8",
+        "eslint-config-next": "^15.0.0-rc.0",
+        "postcss": "^8",
+        "tailwindcss": "^3.4.1",
+        "typescript": "^5"
+    }
 }
