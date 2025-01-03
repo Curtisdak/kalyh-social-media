@@ -15,7 +15,7 @@ const Homepage = () => {
       </div>
       {/* RIGHT */}
       <div id="right" className="hidden lg:flex w-[30%]  ">
-        <RightMainBox userId={""} />
+        <RightMainBox  />
       </div>
     </div>
   );

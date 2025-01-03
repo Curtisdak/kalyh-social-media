@@ -6,7 +6,7 @@ import RightMainBox from "@/app/components/RightMainBox/RightMainBox";
 import React from "react";
 import { auth } from "@clerk/nextjs/server";
 import prisma from "../../../../lib/client";
-import { notFound } from "next/navigation";
+import NotFound from "@/app/components/CenterMainBox/NotFound";
 
 type ProfileProps = {
   params: {
@@ -18,7 +18,7 @@ const Profile = async ({ params }: ProfileProps) => {
   const { username } = params; // Extracting `username` from `params`
 
   const { userId } = auth();
-  if (!userId) return null;
+  if (!userId) return <NotFound message={"Sorry"}redirect={"/"} detail={""}/>
 
   const user = await prisma.user.findFirst({
     where: { username },
@@ -33,7 +33,7 @@ const Profile = async ({ params }: ProfileProps) => {
     },
   });
 
-  if (!user) return notFound();
+  if (!user) return <NotFound message={ `Sorry user not found !`}redirect={"/"} detail={""}/>
 
   const { userId: currentUserId } = auth();
 
@@ -52,10 +52,10 @@ const Profile = async ({ params }: ProfileProps) => {
     isBlocked = false;
   }
 
-  if(isBlocked)return notFound()
+  if(isBlocked)return <NotFound message={`You was blocked by`} redirect={"/"} detail={user.username}/>
 
   return (
-    <div id="main-home-container" className="flex gap-4 ">
+    <div id="main-home-container" className="flex gap-4  ">
       {/* LEFT */}
       <div id="left" className="hidden xl:flex  w-[20%] ">
         <LeftMainBox type="profile" />

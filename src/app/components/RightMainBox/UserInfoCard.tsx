@@ -13,11 +13,13 @@ import React from "react";
 import UserInfoCardInteraction from "./UserInfoCardInteraction";
 import { auth } from "@clerk/nextjs/server";
 import prisma from "../../../../lib/client";
+import UpdateProfile from "./UpdateProfile";
 
-const convertedDate = (date: any) => {
+
+export const convertedDate = (date: any, style:string) => {
   const theDate = new Date();
   const dateOptions: any = {
-    dateStyle: "full",
+    dateStyle: style,
   };
   const formatter = new Intl.DateTimeFormat(date, dateOptions);
   const formattedDate = formatter.format(theDate);
@@ -64,9 +66,7 @@ const UserInfoCard = async ({ user }: { user: User }) => {
       {/*  */}
       <div className="flex justify-between items-center text-primary mb-2">
         <p className="">User information</p>
-        <Button variant={"ghost"} className="rounded-full">
-          Edit
-        </Button>
+       {user.id===currentUserId && <UpdateProfile user={user}  />  }
       </div>
       <p className="text-lg text-muted-foreground font-bold">
         {user?.name}{" "}
@@ -121,16 +121,16 @@ const UserInfoCard = async ({ user }: { user: User }) => {
         <div className="flex gap-2 items-center">
           {" "}
           <CalendarDays strokeWidth={1.5} className="w-4 h-4" />{" "}
-          <p> {` ${convertedDate(user?.createdAt)}`} </p>{" "}
+          <p> {` ${convertedDate(user?.createdAt,"full")}`} </p>{" "}
         </div>
 
-        <UserInfoCardInteraction
+        {user.id !== currentUserId&&<UserInfoCardInteraction
           userId= {user.id}
           currentUserId = {currentUserId}
           isUserBlocked={isUserBlocked}
           isFollowing={isFollowing}
           isFollowRequestSent={isFollowRequestSent}
-        />
+        />}
       </div>
     </div>
   );

@@ -2,7 +2,8 @@
 
 
 import { auth } from "@clerk/nextjs/server";
-import prisma from "../../lib/client";
+import prisma from "./client";
+
 
 export const followAction = async (userId: string) => {
   const { userId: currentUserId } = auth();

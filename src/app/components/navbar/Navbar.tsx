@@ -102,12 +102,12 @@ const Navbar = () => {
                   href={"/"}
                 >
                   <MessageCircleMore className="w-4 h-4" />{" "}
-                  <p className="text-sm">Chats</p>{" "}
+                  <p className="text-sm"></p>{" "}
                 </Link>
                 {/* --------------------- NOTIFICATION BUTTON   ---------------------------------------- */}
                 <div className="flex flex-row gap-1 items-center justify-center hover:scale-110 duration-500 ease-in-out">
                   <Bell className="w-4 h-4" />{" "}
-                  <p className="text-sm">Notifications</p>{" "}
+                  <p className="text-sm"></p>{" "}
                 </div>
                 
                   <UserButton />

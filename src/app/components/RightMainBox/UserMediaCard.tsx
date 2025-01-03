@@ -1,35 +1,45 @@
-import { Button } from "@/components/ui/button";
+import prisma from "../../../../lib/client";
 import { User } from "@prisma/client";
 import Image from "next/image";
-import React from "react";
+import Link from "next/link";
 
+const UserMediaCard = async ({ user }: { user: User }) => {
+  const postsWithMedia = await prisma.post.findMany({
+    where: {
+      userId: user.id,
+      img: {
+        not: null,
+      },
+    },
+    take: 6,
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
 
-const UserMediaCard = ({ user }:{user?:User}) => {
   return (
-    <div className="bg-background p-4 shadow-lg rounded-md w-full text-sm ">
-      {/*  */}
-      <div className="flex justify-between items-center text-primary mb-4">
-        <p className="">User media</p>
-        <Button variant={"ghost"} className="rounded-full">
+    <div className="p-4 bg-background rounded-lg shadow-md text-sm flex flex-col gap-4">
+      {/* TOP */}
+      <div className="flex justify-between items-center font-medium">
+        <span className="text-gray-500">User Media</span>
+        <Link href="/" className="text-blue-500 text-xs">
           See all
-        </Button>
+        </Link>
       </div>
-      <div className="grid grid-rows-2  grid-cols-4  gap-3 opacity-60 hover:opacity-100">
-        {Array.from({ length: 6}, (_, index) => (
-          <div
-            key={index}
-            className="relative w-25 h-40 rounded-sm overflow-hidden"
-          >
-            <Image
-              src={
-                "https://images.pexels.com/photos/6154428/pexels-photo-6154428.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-              }
-              alt="media"
-              fill
-              className="object-cover hover:animate-pulse cursor-pointer"
-            />
-          </div>
-        ))}
+      {/* BOTTOM */}
+      <div className="flex gap-2 flex-wrap">
+        {postsWithMedia.length
+          ? postsWithMedia.map((post) => (
+              <div className="relative w-1/5 h-24" key={post.id}>
+                <Image
+                  src={post.img!}
+                  alt=""
+                  fill
+                  className="object-cover rounded-md"
+                />
+              </div>
+            ))
+          : "No media found!"}
       </div>
     </div>
   );
